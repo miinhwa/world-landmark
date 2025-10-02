@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Конструктор сайта — Elegant Builder</title>
+    <meta name="color-scheme" content="light dark">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <aside class="sidebar" aria-label="Панель элементов">
+            <div class="brand">
+                <div class="logo">EB</div>
+                <div class="brand-text">
+                    <strong>Elegant</strong>
+                    <span>Builder</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <label class="control">
+                    <span>Тема</span>
+                    <select id="themeSelect" aria-label="Выбор темы">
+                        <option value="aurora">Aurora</option>
+                        <option value="sunset">Sunset</option>
+                        <option value="ocean">Ocean</option>
+                        <option value="forest">Forest</option>
+                        <option value="mono">Mono</option>
+                    </select>
+                </label>
+                <label class="control">
+                    <span>Шрифт</span>
+                    <select id="fontSelect" aria-label="Выбор шрифта">
+                        <option value="Inter">Inter</option>
+                        <option value="Playfair Display">Playfair</option>
+                        <option value="system-ui">System</option>
+                    </select>
+                </label>
+                <label class="control">
+                    <span>Радиус</span>
+                    <input id="radiusRange" type="range" min="4" max="24" value="14">
+                </label>
+                <label class="control">
+                    <span>Сетка</span>
+                    <input id="gridToggle" type="checkbox" checked>
+                </label>
+            </div>
+
+            <div class="palette" role="list" aria-label="Библиотека блоков">
+                <h3>Блоки</h3>
+                <button class="block" data-type="hero" role="listitem">Hero</button>
+                <button class="block" data-type="features" role="listitem">Преимущества</button>
+                <button class="block" data-type="gallery" role="listitem">Галерея</button>
+                <button class="block" data-type="cta" role="listitem">Призыв</button>
+                <button class="block" data-type="footer" role="listitem">Футер</button>
+            </div>
+
+            <div class="actions">
+                <button id="exportBtn" class="primary">Экспорт HTML</button>
+                <button id="clearBtn" class="ghost">Очистить</button>
+            </div>
+        </aside>
+
+        <main class="stage" aria-live="polite">
+            <div id="canvas" class="canvas" tabindex="0" aria-label="Холст для блоков">
+                <div class="empty-hint">
+                    <div class="hint-card">
+                        <h2>Начните с добавления блока</h2>
+                        <p>Выберите элемент слева и настройте его прямо на холсте. Перетаскивайте, изменяйте порядок, редактируйте текст.</p>
+                        <div class="hint-buttons">
+                            <button class="block" data-type="hero">Добавить Hero</button>
+                            <button class="block" data-type="features">Добавить Преимущества</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <template id="tpl-hero">
+        <section class="b-hero editable" data-name="Hero">
+            <div class="b-controls" aria-label="Управление блоком">
+                <button data-move="up" title="Вверх">↑</button>
+                <button data-move="down" title="Вниз">↓</button>
+                <button data-dup title="Дублировать">⎘</button>
+                <button data-del title="Удалить">✕</button>
+            </div>
+            <div class="hero-bg"></div>
+            <div class="container">
+                <h1 contenteditable="true">Создавайте изящные сайты</h1>
+                <p contenteditable="true">Простой редактор, продуманный дизайн и мгновенный экспорт — всё в одном.</p>
+                <div class="hero-actions">
+                    <a href="#" class="btn primary" contenteditable="true">Начать</a>
+                    <a href="#" class="btn" contenteditable="true">Узнать больше</a>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-features">
+        <section class="b-features editable" data-name="Преимущества">
+            <div class="b-controls">
+                <button data-move="up" title="Вверх">↑</button>
+                <button data-move="down" title="Вниз">↓</button>
+                <button data-dup title="Дублировать">⎘</button>
+                <button data-del title="Удалить">✕</button>
+            </div>
+            <div class="container grid-3">
+                <article>
+                    <h3 contenteditable="true">Мощные блоки</h3>
+                    <p contenteditable="true">Готовые секции с лучшими практиками UX и типографики.</p>
+                </article>
+                <article>
+                    <h3 contenteditable="true">Живая редактура</h3>
+                    <p contenteditable="true">Редактируйте текст прямо на странице, без лишних окон.</p>
+                </article>
+                <article>
+                    <h3 contenteditable="true">Экспорт одним кликом</h3>
+                    <p contenteditable="true">Скачайте чистый HTML для размещения где угодно.</p>
+                </article>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-gallery">
+        <section class="b-gallery editable" data-name="Галерея">
+            <div class="b-controls">
+                <button data-move="up" title="Вверх">↑</button>
+                <button data-move="down" title="Вниз">↓</button>
+                <button data-dup title="Дублировать">⎘</button>
+                <button data-del title="Удалить">✕</button>
+            </div>
+            <div class="container gallery">
+                <div class="card" contenteditable="false">
+                    <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=800&auto=format&fit=crop" alt="Фото 1">
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop" alt="Фото 2">
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1529336953121-ad5a0d43d0b4?q=80&w=800&auto=format&fit=crop" alt="Фото 3">
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-cta">
+        <section class="b-cta editable" data-name="Призыв">
+            <div class="b-controls">
+                <button data-move="up" title="Вверх">↑</button>
+                <button data-move="down" title="Вниз">↓</button>
+                <button data-dup title="Дублировать">⎘</button>
+                <button data-del title="Удалить">✕</button>
+            </div>
+            <div class="container">
+                <h2 contenteditable="true">Готовы начать?</h2>
+                <p contenteditable="true">Создайте свой сайт за минуты. Красиво. Быстро. Удобно.</p>
+                <a href="#" class="btn primary" contenteditable="true">Создать сайт</a>
+            </div>
+        </section>
+    </template>
+
+    <template id="tpl-footer">
+        <footer class="b-footer editable" data-name="Футер">
+            <div class="b-controls">
+                <button data-move="up" title="Вверх">↑</button>
+                <button data-move="down" title="Вниз">↓</button>
+                <button data-dup title="Дублировать">⎘</button>
+                <button data-del title="Удалить">✕</button>
+            </div>
+            <div class="container footer">
+                <p contenteditable="true">© <span class="year"></span> Elegant Builder. Все права защищены.</p>
+                <nav>
+                    <a href="#" contenteditable="true">Документация</a>
+                    <a href="#" contenteditable="true">Политика</a>
+                    <a href="#" contenteditable="true">Связаться</a>
+                </nav>
+            </div>
+        </footer>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+
